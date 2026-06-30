@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bank Sampah Ceria RW 07 - Pondok Kopi, Jakarta Timur</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Source Sans 3', sans-serif; background: #F7F5F0; color: #1C1C1C; }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-thumb { background: #1A6B73; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    padding: 0 40px; transition: all 0.35s ease;
+  }
+  nav.scrolled {
+    background: rgba(247,245,240,0.96);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid #e0ddd5;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+  .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .nav-brand { display: flex; align-items: center; gap: 12px; }
+  .nav-icon { width: 38px; height: 38px; background: #1A6B73; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.1rem; flex-shrink: 0; }
+  .nav-brand-main { font-weight: 700; font-size: 0.88rem; letter-spacing: 0.05em; color: #1A6B73; transition: color 0.3s; }
+  .nav-brand-sub { font-size: 0.62rem; letter-spacing: 0.16em; color: #999; text-transform: uppercase; transition: color 0.3s; }
+  nav:not(.scrolled) .nav-brand-main { color: white; }
+  nav:not(.scrolled) .nav-brand-sub { color: rgba(255,255,255,0.65); }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-size: 0.82rem; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: rgba(255,255,255,0.88); border-bottom: 2px solid transparent; padding-bottom: 3px; transition: color 0.2s, border-color 0.2s; }
+  nav.scrolled .nav-links a { color: #1C1C1C; }
+  .nav-links a:hover { color: #1A6B73; border-bottom-color: #F0A500; }
+  .burger { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: white; transition: color 0.2s; }
+  nav.scrolled .burger { color: #1C1C1C; }
+  .mobile-menu { display: none; background: rgba(247,245,240,0.98); border-top: 1px solid #e0ddd5; padding: 12px 40px 24px; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: 12px 0; border-bottom: 1px solid #eee; font-size: 0.85rem; letter-spacing: 0.09em; text-transform: uppercase; text-decoration: none; color: #1C1C1C; }
+
+  #beranda { min-height: 100vh; background: #1A6B73; position: relative; overflow: hidden; display: flex; align-items: center; }
+  .hero-circle { position: absolute; top: -100px; right: -100px; width: 480px; height: 480px; border: 70px solid rgba(240,165,0,0.12); border-radius: 50%; pointer-events: none; }
+  .hero-box { position: absolute; bottom: -80px; left: -50px; width: 320px; height: 320px; background: rgba(0,0,0,0.08); transform: rotate(30deg); pointer-events: none; }
+  .hero-sq { position: absolute; top: 35%; right: 10%; width: 72px; height: 72px; background: #F0A500; opacity: 0.8; pointer-events: none; }
+  .hero-ln { position: absolute; bottom: 25%; left: 6%; width: 140px; height: 3px; background: #F0A500; opacity: 0.4; pointer-events: none; }
+  .hero-content { max-width: 1200px; margin: 0 auto; padding: 130px 40px 100px; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 380px; gap: 60px; align-items: center; }
+  .hero-badge { display: inline-block; background: #F0A500; color: #1C1C1C; font-size: 0.69rem; letter-spacing: 0.22em; text-transform: uppercase; padding: 5px 14px; margin-bottom: 26px; font-weight: 700; animation: fadeUp 0.9s 0.1s both; }
+  .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 700; color: white; line-height: 1.08; margin-bottom: 20px; animation: fadeUp 0.9s 0.3s both; }
+  .hero-title span { color: #F0A500; }
+  .hero-body { animation: fadeUp 0.9s 0.5s both; }
+  .hero-bar { width: 56px; height: 3px; background: #F0A500; margin-bottom: 22px; }
+  .hero-p { color: rgba(255,255,255,0.8); font-size: 1.02rem; line-height: 1.85; max-width: 530px; margin-bottom: 38px; font-weight: 300; }
+  .hero-p em { color: #F0A500; font-style: italic; }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn-p { background: #1A6B73; color: white; border: none; padding: 13px 30px; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.2s; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  .btn-p:hover { background: #145558; transform: translateY(-2px); }
+  .btn-g { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.5); padding: 11px 28px; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  .btn-g:hover { background: rgba(255,255,255,0.12); border-color: white; }
+  .btn-o { background: transparent; color: #1A6B73; border: 2px solid #1A6B73; padding: 11px 28px; font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+  .btn-o:hover { background: #1A6B73; color: white; }
+
+  .hero-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); padding: 38px; backdrop-filter: blur(12px); position: relative; animation: fadeUp 0.9s 0.6s both; }
+  .hero-card-dot { position: absolute; top: -10px; right: -10px; width: 36px; height: 36px; background: #F0A500; }
+  .hero-card-icon { font-size: 2.8rem; text-align: center; margin-bottom: 18px; }
+  .hero-card-q { color: rgba(255,255,255,0.88); font-style: italic; line-height: 1.75; text-align: center; font-size: 0.96rem; margin-bottom: 22px; }
+  .hero-card-div { border-top: 1px solid rgba(255,255,255,0.18); padding-top: 18px; }
+  .hero-card-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .hcrl { font-size: 0.7rem; color: rgba(255,255,255,0.5); }
+  .hcrv { font-size: 0.76rem; color: #F0A500; font-weight: 600; }
+  .hero-wave { position: absolute; bottom: 0; left: 0; right: 0; }
+
+  .stats-wrap { background: #F7F5F0; padding: 0 40px; }
+  .stats-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; transform: translateY(-44px); }
+  .stat-card { background: white; padding: 30px 20px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.07); border-top: 3px solid #F0A500; transition: transform 0.3s, box-shadow 0.3s; }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(26,107,115,0.16); }
+  .stat-num { font-family: 'Source Sans 3', sans-serif; font-size: 2.6rem; font-weight: 700; color: #1A6B73; line-height: 1; }
+  .stat-num span { color: #F0A500; }
+  .stat-lbl { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #999; margin-top: 8px; }
+
+  section { padding: 80px 40px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .slbl { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #1A6B73; font-weight: 700; }
+  .gbar { width: 54px; height: 3px; background: #F0A500; margin: 13px 0; }
+  .gbarc { width: 54px; height: 3px; background: #F0A500; margin: 13px auto; }
+  .stitle { font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700; line-height: 1.2; }
+  .sctr { text-align: center; }
+  .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+  .fi { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fi.vis { opacity: 1; transform: translateY(0); }
+
+  #tentang { background: #F7F5F0; padding-top: 20px; }
+  .tp { color: #555; line-height: 1.9; font-size: 0.97rem; margin-bottom: 16px; font-weight: 300; }
+  .tags { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+  .tag { display: inline-block; background: #E8F4F5; color: #1A6B73; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 12px; border-left: 3px solid #F0A500; }
+  .legbox { background: #1A6B73; padding: 34px; }
+  .legsub { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: #F0A500; margin-bottom: 12px; font-weight: 700; }
+  .legtitle { font-size: 1rem; font-weight: 700; color: white; margin-bottom: 20px; line-height: 1.4; }
+  .legrow { display: flex; justify-content: space-between; gap: 14px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 9px; margin-bottom: 9px; }
+  .legk { font-size: 0.73rem; color: rgba(255,255,255,0.58); flex-shrink: 0; }
+  .legv { font-size: 0.78rem; color: white; font-weight: 600; text-align: right; }
+  .vbox { background: #F0A500; padding: 18px 26px; display: flex; align-items: center; gap: 14px; }
+  .vicon { font-size: 1.7rem; }
+  .vtitle { font-weight: 700; font-size: 0.86rem; }
+  .vsub { font-size: 0.74rem; color: rgba(0,0,0,0.62); margin-top: 2px; }
+
+  #program { background: #1C1C1C; }
+  .pgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .pcard { background: #242424; border: 1px solid #303030; padding: 34px; transition: transform 0.3s; }
+  .pcard:hover { transform: translateY(-6px); }
+  .picon { font-size: 2.2rem; margin-bottom: 16px; }
+  .pbar { width: 34px; height: 3px; background: #F0A500; margin-bottom: 16px; }
+  .ptitle { color: white; font-weight: 700; font-size: 0.98rem; margin-bottom: 12px; line-height: 1.4; }
+  .pdesc { color: #888; line-height: 1.85; font-size: 0.86rem; font-weight: 300; }
+
+  #mekanisasi { background: #F7F5F0; }
+  .mbox { background: #1A6B73; padding: 46px; position: relative; }
+  .mdot { position: absolute; top: -13px; right: -13px; width: 66px; height: 66px; background: #F0A500; }
+  .minner { position: relative; z-index: 1; text-align: center; }
+  .memoji { font-size: 3.2rem; margin-bottom: 18px; }
+  .msub { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: #F0A500; margin-bottom: 8px; }
+  .mtitle { color: white; font-size: 1.35rem; font-weight: 700; margin-bottom: 22px; }
+  .mitem { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.09); padding: 10px 16px; margin-bottom: 8px; text-align: left; }
+  .mii { font-size: 1rem; flex-shrink: 0; }
+  .mit { color: rgba(255,255,255,0.85); font-size: 0.82rem; }
+  .mrp { color: #555; line-height: 1.9; margin-bottom: 16px; font-size: 0.96rem; font-weight: 300; }
+  .csrbox { background: #FFF8E7; border: 1px solid #F0A500; border-left: 4px solid #F0A500; padding: 18px 22px; margin-bottom: 16px; }
+  .csrtitle { font-weight: 700; font-size: 0.86rem; margin-bottom: 5px; }
+  .csrdesc { font-size: 0.84rem; color: #555; }
+  .csrdesc strong { color: #1A6B73; }
+  .esgbox { background: #E8F4F5; border: 1px solid #BDE0E4; padding: 18px 22px; }
+  .esgtitle { font-weight: 700; font-size: 0.86rem; color: #1A6B73; margin-bottom: 4px; }
+  .esgdesc { font-size: 0.81rem; color: #555; }
+
+  #pengurus { background: white; }
+  .psub { color: #888; margin-top: 12px; font-size: 0.88rem; font-weight: 300; }
+  .pgrid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; }
+  .pkard { border: 2px solid #eae7e0; padding: 26px; background: #FAFAF8; transition: border-color 0.25s; }
+  .pkard:hover { border-color: #1A6B73; }
+  .pemoji { font-size: 1.7rem; margin-bottom: 10px; }
+  .pjab { font-size: 0.67rem; letter-spacing: 0.15em; text-transform: uppercase; color: #F0A500; margin-bottom: 7px; font-weight: 700; }
+  .pnama { font-weight: 700; font-size: 0.98rem; }
+
+  #galeri { background: #F7F5F0; }
+  .ggrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .gitem { background: #E8F4F5; aspect-ratio: 4/3; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; border: 1px solid #CCE7EB; cursor: pointer; transition: background 0.2s; }
+  .gitem:hover { background: #D4EDF1; }
+  .gemoji { font-size: 2.6rem; }
+  .glabel { font-size: 0.73rem; color: #1A6B73; text-align: center; padding: 0 16px; line-height: 1.5; }
+  .gnote { text-align: center; margin-top: 26px; font-size: 0.82rem; color: #aaa; font-style: italic; }
+
+  #cta { background: #F0A500; padding: 80px 40px; }
+  .ctitle { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: #1C1C1C; line-height: 1.2; margin-bottom: 14px; }
+  .cdesc { color: rgba(0,0,0,0.65); line-height: 1.85; font-size: 0.97rem; font-weight: 300; margin-bottom: 34px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .cbtns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  #kontak { background: #1C1C1C; }
+  .klbl { font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: #F0A500; margin-bottom: 11px; font-weight: 700; }
+  .kbar { width: 54px; height: 3px; background: #F0A500; margin-bottom: 22px; }
+  .ktitle { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: white; margin-bottom: 18px; line-height: 1.2; }
+  .kp { color: #888; line-height: 1.9; font-size: 0.92rem; font-weight: 300; margin-bottom: 32px; }
+  .klist { display: grid; gap: 16px; }
+  .kitem { display: flex; gap: 14px; align-items: flex-start; }
+  .kicon { width: 38px; height: 38px; background: #1A6B73; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1rem; }
+  .kilbl { font-size: 0.67rem; letter-spacing: 0.12em; text-transform: uppercase; color: #F0A500; margin-bottom: 3px; }
+  .kival { color: rgba(255,255,255,0.82); font-size: 0.85rem; line-height: 1.5; }
+  .fbox { background: #242424; border: 1px solid #333; padding: 38px; }
+  .ftitle { color: white; font-weight: 700; font-size: 1rem; margin-bottom: 26px; }
+  .finput { display: block; width: 100%; background: #1A1A1A; border: 1px solid #3a3a3a; color: white; padding: 12px 15px; margin-bottom: 13px; font-size: 0.87rem; outline: none; transition: border-color 0.2s; font-family: 'Source Sans 3', sans-serif; }
+  .finput:focus { border-color: #1A6B73; }
+  textarea.finput { resize: vertical; }
+  .fnote { font-size: 0.73rem; color: #555; margin-top: 14px; text-align: center; }
+
+  footer { background: #111; padding: 28px 40px; border-top: 3px solid #F0A500; }
+  .finner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  .fbrand { display: flex; align-items: center; gap: 10px; }
+  .ficon { width: 30px; height: 30px; background: #1A6B73; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.9rem; }
+  .fname { color: white; font-size: 0.8rem; font-weight: 700; }
+  .fcopy { color: #555; font-size: 0.73rem; }
+  .flinks { display: flex; gap: 20px; }
+  .flinks a { color: #555; font-size: 0.73rem; text-decoration: none; transition: color 0.2s; }
+  .flinks a:hover { color: #F0A500; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .burger { display: block; }
+    .hero-content { grid-template-columns: 1fr; padding: 110px 20px 80px; }
+    .hero-card { display: none; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    section { padding: 60px 20px; }
+    .twocol { grid-template-columns: 1fr; gap: 40px; }
+    .ggrid { grid-template-columns: repeat(2, 1fr); }
+    .finner { flex-direction: column; text-align: center; }
+    .mobile-menu { padding: 12px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="nb">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <div class="nav-icon">&#9851;</div>
+      <div>
+        <div class="nav-brand-main">BANK SAMPAH CERIA</div>
+        <div class="nav-brand-sub">RW 07 &middot; Pondok Kopi</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#beranda">Beranda</a>
+      <a href="#tentang">Tentang</a>
+      <a href="#program">Program</a>
+      <a href="#pengurus">Pengurus</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+    <button class="burger" onclick="toggleMenu()" id="bBtn">&#9776;</button>
+  </div>
+  <div class="mobile-menu" id="mMenu">
+    <a href="#beranda" onclick="closeMenu()">Beranda</a>
+    <a href="#tentang" onclick="closeMenu()">Tentang</a>
+    <a href="#program" onclick="closeMenu()">Program</a>
+    <a href="#pengurus" onclick="closeMenu()">Pengurus</a>
+    <a href="#galeri" onclick="closeMenu()">Galeri</a>
+    <a href="#kontak" onclick="closeMenu()">Kontak</a>
+  </div>
+</nav>
+
+<section id="beranda">
+  <div class="hero-circle"></div>
+  <div class="hero-box"></div>
+  <div class="hero-sq"></div>
+  <div class="hero-ln"></div>
+  <div class="hero-content">
+    <div>
+      <div class="hero-badge">SK Lurah No. 134 &middot; Tahun 2025 &middot; Pondok Kopi</div>
+      <h1 class="hero-title">Bank Sampah<br><span>Ceria</span> RW 07</h1>
+      <div class="hero-body">
+        <div class="hero-bar"></div>
+        <p class="hero-p">Pelopor pengelolaan sampah anorganik berbasis komunitas di Kelurahan Pondok Kopi, Kecamatan Duren Sawit, Jakarta Timur. Aktif sejak 2020, melayani warga dengan semangat <em>Dari Sampah Jadi Berkah.</em></p>
+        <div class="hero-btns">
+          <a href="#tentang" class="btn-p">Selengkapnya</a>
+          <a href="#kontak" class="btn-g">Hubungi Kami</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-dot"></div>
+      <div class="hero-card-icon">&#9851;&#65039;</div>
+      <p class="hero-card-q">"Langkah kecil di tingkat komunitas adalah pondasi besar bagi kesehatan lingkungan nasional."</p>
+      <div class="hero-card-div">
+        <div class="hero-card-row"><span class="hcrl">Ketua</span><span class="hcrv">Sugianto</span></div>
+        <div class="hero-card-row"><span class="hcrl">SK</span><span class="hcrv">No. 134 / 2025</span></div>
+        <div class="hero-card-row"><span class="hcrl">Wilayah</span><span class="hcrv">RW 07 Pondok Kopi</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:70px;"><path d="M0,35 C480,70 960,0 1440,35 L1440,70 L0,70 Z" fill="#F7F5F0"/></svg>
+  </div>
+</section>
+
+<div class="stats-wrap">
+  <div class="stats-grid">
+    <div class="stat-card fi"><div class="stat-num">2020</div><div class="stat-lbl">Berdiri Sejak</div></div>
+    <div class="stat-card fi"><div class="stat-num">5<span>+</span></div><div class="stat-lbl">Tahun Aktif</div></div>
+    <div class="stat-card fi"><div class="stat-num">70<span>%</span></div><div class="stat-lbl">Target Efisiensi</div></div>
+    <div class="stat-card fi"><div class="stat-num">07</div><div class="stat-lbl">RW Pondok Kopi</div></div>
+  </div>
+</div>
+
+<section id="tentang">
+  <div class="container">
+    <div class="twocol">
+      <div class="fi">
+        <div class="slbl">Profil Organisasi</div>
+        <div class="gbar"></div>
+        <h2 class="stitle" style="margin-bottom:18px;">Tentang Bank Sampah Ceria</h2>
+        <p class="tp">Bank Sampah Ceria RW 07 adalah organisasi komunitas yang berdiri sejak 2020 sebagai pelopor pengelolaan sampah anorganik di Kelurahan Pondok Kopi. Kami beroperasi dengan prinsip pemberdayaan warga &mdash; setiap kilogram sampah yang disetor adalah langkah nyata menuju lingkungan yang lebih bersih.</p>
+        <p class="tp">Dengan konsistensi lebih dari 5 tahun, kami membangun kepercayaan warga, mendapat pengakuan resmi pemerintah kelurahan, dan terus berinovasi meningkatkan kapasitas pengelolaan sampah di tingkat komunitas.</p>
+        <div class="tags">
+          <span class="tag">Legalitas Resmi</span>
+          <span class="tag">Aktif 5+ Tahun</span>
+          <span class="tag">Berbasis RW</span>
+          <span class="tag">ESG Compliant</span>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="legbox">
+          <div class="legsub">Data Legalitas Resmi</div>
+          <div class="legtitle">Keputusan Lurah Kelurahan Pondok Kopi<br>Kecamatan Duren Sawit &middot; Jakarta Timur</div>
+          <div class="legrow"><span class="legk">SK Penetapan</span><span class="legv">No. 134 Tahun 2025</span></div>
+          <div class="legrow"><span class="legk">Tanggal</span><span class="legv">14 Maret 2025</span></div>
+          <div class="legrow"><span class="legk">Pejabat</span><span class="legv">M. Hardi Ananda, S.STP., M.UAP</span></div>
+          <div class="legrow"><span class="legk">NIP</span><span class="legv">198606282004121001</span></div>
+          <div class="legrow"><span class="legk">Historis</span><span class="legv">Pembaruan dari SK No. 95 / 2020</span></div>
+          <div class="legrow" style="border:none;margin:0;"><span class="legk">Kecamatan</span><span class="legv">Duren Sawit, Jakarta Timur</span></div>
+        </div>
+        <div class="vbox">
+          <div class="vicon">&#9989;</div>
+          <div>
+            <div class="vtitle">Terverifikasi Pemerintah</div>
+            <div class="vsub">Konsistensi terbukti sejak SK No. 95 Tahun 2020</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="program">
+  <div class="container">
+    <div class="sctr fi" style="margin-bottom:52px;">
+      <div class="slbl" style="color:#F0A500;">Apa Yang Kami Lakukan</div>
+      <div class="gbarc"></div>
+      <h2 class="stitle" style="color:white;">Program Unggulan</h2>
+    </div>
+    <div class="pgrid">
+      <div class="pcard fi"><div class="picon">&#127974;</div><div class="pbar"></div><div class="ptitle">Tabungan Sampah Warga</div><div class="pdesc">Warga RW 07 dapat menyetorkan sampah anorganik pilah &mdash; botol plastik, kardus, kertas, kaleng &mdash; dan mendapatkan nilai tabungan ekonomis.</div></div>
+      <div class="pcard fi"><div class="picon">&#9851;&#65039;</div><div class="pbar"></div><div class="ptitle">Pemilahan &amp; Pemadatan</div><div class="pdesc">Sampah dikumpulkan, dipilah berdasarkan jenis, lalu dipadatkan untuk meningkatkan efisiensi ruang simpan dan pengangkutan ke industri daur ulang.</div></div>
+      <div class="pcard fi"><div class="picon">&#128218;</div><div class="pbar"></div><div class="ptitle">Edukasi Lingkungan</div><div class="pdesc">Sosialisasi aktif ke warga RW 07 dan sekolah sekitar tentang pentingnya pemilahan sampah dari sumber untuk lingkungan yang lebih sehat.</div></div>
+      <div class="pcard fi"><div class="picon">&#127981;</div><div class="pbar"></div><div class="ptitle">Daur Ulang Industri</div><div class="pdesc">Sampah yang telah dipadatkan dikirim ke mitra industri daur ulang, menciptakan rantai nilai ekonomi sirkular yang menguntungkan seluruh pihak.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="mekanisasi">
+  <div class="container">
+    <div class="twocol">
+      <div class="fi">
+        <div class="mbox">
+          <div class="mdot"></div>
+          <div class="minner">
+            <div class="memoji">&#9881;&#65039;</div>
+            <div class="msub">Solusi Mekanisasi</div>
+            <div class="mtitle">Manual Baling Machine</div>
+            <div class="mitem"><div class="mii">&#128297;</div><div class="mit">Konstruksi baja ulir &mdash; piston 10mm</div></div>
+            <div class="mitem"><div class="mii">&#128230;</div><div class="mit">Efisiensi ruang 70% &mdash; blok padat industri</div></div>
+            <div class="mitem"><div class="mii">&#9889;</div><div class="mit">Zero listrik &mdash; full operasi manual</div></div>
+            <div class="mitem"><div class="mii">&#127807;</div><div class="mit">Reduksi emisi karbon &amp; biaya logistik</div></div>
+            <div class="mitem"><div class="mii">&#128170;</div><div class="mit">Memuliakan kerja relawan komunitas</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="slbl">Inovasi Operasional</div>
+        <div class="gbar"></div>
+        <h2 class="stitle" style="margin-bottom:18px;">Dari Perjuangan Manual ke Mekanisasi</h2>
+        <p class="mrp">Selama 2 tahun, relawan kami memproses ribuan botol plastik dan kardus secara manual &mdash; menginjak botol satu per satu, menggunakan beban kayu dan batu seadanya. Hasilnya tidak maksimal: sampah tetap bulky, gudang kehabisan kapasitas, armada pengangkut membawa lebih banyak ruang kosong daripada material.</p>
+        <p class="mrp">Dengan Manual Baling Machine, kapasitas gudang meningkat signifikan, frekuensi pengangkutan berkurang, dan semangat relawan terjaga karena kerja mereka dihargai dengan alat yang layak.</p>
+        <div class="csrbox">
+          <div class="csrtitle">&#128161; Target Investasi CSR</div>
+          <div class="csrdesc">Total kebutuhan <strong>Rp 19.500.000</strong> &mdash; pengadaan mesin (Rp 17 jt) + instalasi &amp; pelatihan operator (Rp 2,5 jt)</div>
+        </div>
+        <div class="esgbox">
+          <div class="esgtitle">&#129309; Integrasi ESG PT Guardian Pharmatama</div>
+          <div class="esgdesc">Environmental Health &middot; Community Development &middot; Decarbonization</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pengurus">
+  <div class="container">
+    <div class="sctr fi" style="margin-bottom:50px;">
+      <div class="slbl">Struktur Organisasi</div>
+      <div class="gbarc"></div>
+      <h2 class="stitle">Pengurus Bank Sampah Ceria RW 07</h2>
+      <p class="psub">Ditetapkan melalui SK Lurah Pondok Kopi No. 134 Tahun 2025 &middot; 14 Maret 2025</p>
+    </div>
+    <div class="pgrid2">
+      <div class="pkard fi"><div class="pemoji">&#127963;&#65039;</div><div class="pjab">Penasehat / Pelindung</div><div class="pnama">Lurah Kelurahan Pondok Kopi</div></div>
+      <div class="pkard fi"><div class="pemoji">&#128100;</div><div class="pjab">Ketua Pelaksana</div><div class="pnama">Sugianto</div></div>
+      <div class="pkard fi"><div class="pemoji">&#128203;</div><div class="pjab">Sekretaris</div><div class="pnama">Martini Setiyati</div></div>
+      <div class="pkard fi"><div class="pemoji">&#128176;</div><div class="pjab">Bendahara</div><div class="pnama">Chatarina Riana Susanti</div></div>
+      <div class="pkard fi"><div class="pemoji">&#127807;</div><div class="pjab">Anggota</div><div class="pnama">Kholilah</div></div>
+      <div class="pkard fi"><div class="pemoji">&#127807;</div><div class="pjab">Anggota</div><div class="pnama">Siti Fatimah</div></div>
+      <div class="pkard fi"><div class="pemoji">&#127807;</div><div class="pjab">Anggota</div><div class="pnama">Armiyanti Husna</div></div>
+      <div class="pkard fi"><div class="pemoji">&#127807;</div><div class="pjab">Anggota</div><div class="pnama">Dadang Ruswan</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="galeri">
+  <div class="container">
+    <div class="sctr fi" style="margin-bottom:50px;">
+      <div class="slbl">Dokumentasi</div>
+      <div class="gbarc"></div>
+      <h2 class="stitle">Galeri Kegiatan</h2>
+    </div>
+    <div class="ggrid">
+      <div class="gitem fi"><div class="gemoji">&#128193;</div><div class="glabel">Pengumpulan &amp; Pemilahan Sampah</div></div>
+      <div class="gitem fi"><div class="gemoji">&#128230;</div><div class="glabel">Proses Pemadatan Manual</div></div>
+      <div class="gitem fi"><div class="gemoji">&#129309;</div><div class="glabel">Koordinasi Petugas Kebersihan</div></div>
+      <div class="gitem fi"><div class="gemoji">&#128218;</div><div class="glabel">Edukasi ke Siswa Sekolah</div></div>
+      <div class="gitem fi"><div class="gemoji">&#127946;</div><div class="glabel">Kunjungan &amp; Sosialisasi RW 07</div></div>
+      <div class="gitem fi"><div class="gemoji">&#9851;&#65039;</div><div class="glabel">Hasil Daur Ulang Siap Kirim</div></div>
+    </div>
+    <p class="gnote">Dokumentasi foto kegiatan nyata akan segera ditambahkan</p>
+  </div>
+</section>
+
+<section id="cta">
+  <div class="container sctr">
+    <div class="fi">
+      <h2 class="ctitle">Bergabunglah Bersama Kami</h2>
+      <p class="cdesc">Warga RW 07 Pondok Kopi &mdash; setor sampah anorganik kamu dan dapatkan nilai tabungan. Bersama kita jaga lingkungan, bersama kita raih berkah dari sampah.</p>
+      <div class="cbtns">
+        <a href="#kontak" class="btn-p">Daftar Sekarang</a>
+        <a href="#program" class="btn-o">Lihat Program</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="kontak">
+  <div class="container">
+    <div class="twocol">
+      <div class="fi">
+        <div class="klbl">Hubungi Kami</div>
+        <div class="kbar"></div>
+        <h2 class="ktitle">Bank Sampah Ceria RW 07</h2>
+        <p class="kp">Berlokasi di RW 07, Kelurahan Pondok Kopi, Kecamatan Duren Sawit, Kota Administrasi Jakarta Timur. Jadwal operasional mengikuti hari pengumpulan sampah rutin warga.</p>
+        <div class="klist">
+          <div class="kitem"><div class="kicon">&#128205;</div><div><div class="kilbl">Lokasi</div><div class="kival">RW 07, Kel. Pondok Kopi, Kec. Duren Sawit, Jakarta Timur</div></div></div>
+          <div class="kitem"><div class="kicon">&#128100;</div><div><div class="kilbl">Ketua Pelaksana</div><div class="kival">Sugianto</div></div></div>
+          <div class="kitem"><div class="kicon">&#128203;</div><div><div class="kilbl">Sekretaris</div><div class="kival">Martini Setiyati</div></div></div>
+          <div class="kitem"><div class="kicon">&#128176;</div><div><div class="kilbl">Bendahara</div><div class="kival">Chatarina Riana Susanti</div></div></div>
+          <div class="kitem"><div class="kicon">&#128220;</div><div><div class="kilbl">SK Lurah</div><div class="kival">No. 134 Tahun 2025 &middot; 14 Maret 2025</div></div></div>
+        </div>
+      </div>
+      <div class="fi">
+        <div class="fbox">
+          <div class="ftitle">Kirim Pesan</div>
+          <input type="text" class="finput" placeholder="Nama Lengkap *" />
+          <input type="tel" class="finput" placeholder="Nomor WhatsApp *" />
+          <input type="email" class="finput" placeholder="Email (opsional)" />
+          <textarea class="finput" rows="5" placeholder="Pesan atau pertanyaan Anda..."></textarea>
+          <a href="#" class="btn-p" style="display:block;text-align:center;width:100%;">Kirim Pesan</a>
+          <p class="fnote">Atau hubungi melalui WhatsApp &middot; Instagram &middot; TikTok</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="finner">
+    <div class="fbrand"><div class="ficon">&#9851;</div><span class="fname">Bank Sampah Ceria RW 07</span></div>
+    <div class="fcopy">&copy; 2025 &middot; Pondok Kopi, Duren Sawit, Jakarta Timur &middot; SK Lurah No. 134/2025</div>
+    <div class="flinks"><a href="#">Instagram</a><a href="#">TikTok</a><a href="#">WhatsApp</a></div>
+  </div>
+</footer>
+
+<script>
+window.addEventListener('scroll', function() {
+  document.getElementById('nb').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+function toggleMenu() {
+  var m = document.getElementById('mMenu');
+  var b = document.getElementById('bBtn');
+  var open = m.classList.toggle('open');
+  b.innerHTML = open ? '&#10005;' : '&#9776;';
+}
+
+function closeMenu() {
+  document.getElementById('mMenu').classList.remove('open');
+  document.getElementById('bBtn').innerHTML = '&#9776;';
+}
+
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fi').forEach(function(el) { obs.observe(el); });
+</script>
+</body>
+</html>
